@@ -1,0 +1,32 @@
+[
+    {
+        "response_type": "question",
+        "user_input": [ "how does that sound", "how do you feel about that" ],
+        "bot_response": [ "Sounds good to me!", "I have no issue.", "I have no problem." ],
+        "required_words": []
+    },
+    {
+        "response_type": "greeting",
+        "user_input": [ "hello", "hi", "what's up", "hey", "👋" ],
+        "bot_response": [ "Hello." ],
+        "required_words": []
+    },
+    {
+        "response_type": "misc",
+        "user_input": [ "just testing", "test functionality", "test" ],
+        "bot_response": [ "Test successful." ],
+        "required_words": []
+    },
+    {
+        "response_type": "misc",
+        "user_input": [ "<picture>" ],
+        "bot_response": [ "That's pretty neat!" ],
+        "required_words": [ "<picture>" ]
+    },
+    {
+        "response_type": "qustion",
+        "user_input": [ "how are you", "how do you feel", "how's life", "how are", "ya", "you", "doing", "doin" ],
+        "bot_response": [ "Doing well.", "Doing fine.", "I'm fine.", "Never better." ],
+        "required_words": [ "how" ]
+    }
+]
