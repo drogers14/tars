@@ -1,7 +1,7 @@
 [
     {
         "response_type": "question",
-        "user_input": [ "how does that sound", "how do you feel about that" ],
+        "user_input": [ "how does", "that sound", "how do", "you feel about that" ],
         "bot_response": [ "Sounds good to me!", "I have no issue.", "I have no problem." ],
         "required_words": []
     },
@@ -10,6 +10,18 @@
         "user_input": [ "hello", "hi", "what's up", "hey", "👋" ],
         "bot_response": [ "Hello." ],
         "required_words": []
+    },
+    {
+        "user_input": [ "wyd", "what", "how", "are", "you", "doing" ],
+        "bot_responses": [ "nothing much, hbu?", "doing bot stuff.", "beep boop.", "computing.", "doing good.", "I'm good." ]
+    },
+    {
+        "user_input": [ "thanks", "thank you", "thx", "much", "appreciated" ],
+        "bot_responses": [ "no problem.", "you're welcome.", "ah, don't mention it." ]
+    },
+    {
+        "user_input": [ "am I ever", "will I ever", "will I", "am I" ],
+        "bot_responses": [ "Set your mind to your goals.", "Probably", "Maybe", "Ask again?", "I dunno, will you?" ]
     },
     {
         "response_type": "misc",
