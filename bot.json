@@ -2,13 +2,13 @@
     {
         "response_type": "question",
         "user_input": [ "how does that sound", "how do you feel about that" ],
-        "bot_response": [ "Sounds good to me!", "I have no issue.", "I have no problem." ],
+        "bot_response": [ "Sounds good to me!", "I have no issue.", "I have no problem.", "Hell nawl!! :sob:" ],
         "required_words": []
     },
     {
         "response_type": "greeting",
         "user_input": [ "hello", "hi", "what's up", "hey", "👋" ],
-        "bot_response": [ "Hello." ],
+        "bot_response": [ "Hello.", "Howdy" ],
         "required_words": []
     },
     {
