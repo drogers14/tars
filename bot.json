@@ -13,15 +13,18 @@
     },
     {
         "user_input": [ "wyd", "what", "how", "are", "you", "doing" ],
-        "bot_response": [ "nothing much, hbu?", "doing bot stuff.", "beep boop.", "computing.", "doing good.", "I'm good." ]
+        "bot_response": [ "nothing much, hbu?", "doing bot stuff.", "beep boop.", "computing.", "doing good.", "I'm good." ],
+        "required_words": []
     },
     {
         "user_input": [ "thanks", "thank you", "thx", "much", "appreciated" ],
-        "bot_response": [ "no problem.", "you're welcome.", "ah, don't mention it." ]
+        "bot_response": [ "no problem.", "you're welcome.", "ah, don't mention it." ],
+        "required_words": []
     },
     {
         "user_input": [ "am I ever", "will I ever", "will I", "am I" ],
-        "bot_response": [ "Set your mind to your goals.", "Probably", "Maybe", "Ask again?", "I dunno, will you?" ]
+        "bot_response": [ "Set your mind to your goals.", "Probably", "Maybe", "Ask again?", "I dunno, will you?" ],
+        "required_words": []
     },
     {
         "response_type": "misc",
