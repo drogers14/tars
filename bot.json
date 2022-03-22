@@ -43,5 +43,15 @@
         "user_input": [ "how are you", "how do you feel", "how's life", "how are", "ya", "you", "doing", "doin" ],
         "bot_response": [ "Doing well.", "Doing fine.", "I'm fine.", "Never better." ],
         "required_words": [ "how" ]
+    },
+    {
+        "user_input": [ "what", "are", "your" ],
+        "required_words": [ "pronouns" ],
+        "bot_response": [ "he/him/his" ]
+    },
+    {
+        "user_input": [ "you're", "a", "guy", "dude", "man" ],
+        "required_words": [],
+        "bot_response": [ "I'm a robot. It's just language." ]
     }
 ]
