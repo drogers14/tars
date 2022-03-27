@@ -4,6 +4,8 @@ import discord
 import json
 import random
 
+from cogs.user_xp import UserXPTracker
+
 settings = {
     "honesty": 90,
     "discretion": 75,
@@ -16,8 +18,12 @@ def load_json(file):
         print(f"Loaded '{file}'")
         return json.load(bot_responses)
 
+def save_json(obj, filename):
+    file = open(filename)
+    json.dump(obj, file)
+    file.close()
 
-# Store JSON data
+# JSON data for chat responses
 response_data = load_json("bot.json")
 
 def random_bad_input_response():
@@ -97,6 +103,8 @@ class Chat(commands.Cog):
     async def on_message(self, message: discord.Message):
         if message.author == self.bot.user:
             return
+
+        await UserXPTracker(self.bot).update_user_stats(message)
 
         if self.bot.user in message.mentions:
             if "setting" in message.content:

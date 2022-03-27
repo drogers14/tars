@@ -75,6 +75,7 @@ class Functions(commands.Cog):
         # Ensure there is text to encode
         if not text:
             await ctx.message.reply("I need text to put into a QR code.")
+            return
 
         print(f"Searching {message_text} for args")
         # Get arguments for command, if any
@@ -85,18 +86,14 @@ class Functions(commands.Cog):
                 if (len(opt)%2 != 0):
                     await ctx.message.reply("One or more of your arguments doesn't have a value attached. Double check your command!")
                     return
-            
-            print("Settings:")
+    
             for opt in settings:
-                print(opt)
                 if opt[0] in ["--fill", "--fill_color", "--fg", "--foreground"]:
                     fg_color = eval(opt[1])
                 elif opt[0] in ["--back", "--back_color", "--bg", "--background"]:
                     bg_color = eval(opt[1])
                 elif opt[0] in ["--border"]:
                     border = eval(opt[1])
-        else:
-            print("No settings provided for QR call")
 
         # Final code generation
         qr = qrcode.QRCode(

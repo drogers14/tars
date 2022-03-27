@@ -12,6 +12,11 @@
         "required_words": []
     },
     {
+        "user_input": [ "goodbye", "bye", "adios", "see ya" ],
+        "bot_response": [ "Bye.", "See ya.", "Goodbye." ],
+        "required_words": []
+    },
+    {
         "user_input": [ "wyd", "what", "how", "are", "you", "doing" ],
         "bot_response": [ "nothing much, hbu?", "doing bot stuff.", "beep boop.", "computing.", "doing good.", "I'm good." ],
         "required_words": []
