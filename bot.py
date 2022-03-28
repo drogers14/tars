@@ -17,7 +17,12 @@ intents.members = True
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 bot.add_cog(Functions(bot))
+
+# Unused until I can get some kind of AI text generator to
+# work with this. I prefer random responses to hardcoding everything.
 #bot.add_cog(Chat(bot))
+
+# Unused until I figure out why objects aren't updating properly
 #bot.add_cog(UserXPTracker(bot))
 
 @bot.event

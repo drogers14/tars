@@ -3,6 +3,9 @@ from discord.ext import commands
 import discord
 import json
 import random
+import os
+
+from aidungeonapi import AIDungeonClient
 
 from cogs.user_xp import UserXPTracker
 
@@ -12,101 +15,30 @@ settings = {
     "humor": 100,
 }
 
-# Load JSON data
-def load_json(file):
-    with open(file) as bot_responses:
-        print(f"Loaded '{file}'")
-        return json.load(bot_responses)
 
-def save_json(obj, filename):
-    file = open(filename)
-    json.dump(obj, file)
-    file.close()
-
-# JSON data for chat responses
-response_data = load_json("bot.json")
-
-def random_bad_input_response():
-    random_list = [
-        "Please be more descriptive.",
-        "I don't understand that yet.",
-        "Do you mind trying to rephrase that?",
-        "I can't answer that yet, please try asking something else."
-    ]
-
-    list_count = len(random_list)
-    random_item = random.randrange(list_count)
-
-    return random_list[random_item]
 
 class Chat(commands.Cog):
-    def __init__(self, bot):
+    async def __init__(self, bot):
         self.bot = bot
+        aidc = await AIDungeonClient()
+        adventure = await aidc.connect_to_public_adventure(os.getenv("DUNGEON"))
+        await adventure.register_actions_callback(self.get_response)
 
-    """"
-    Rudimentary chat bot code obtained from
-    https://github.com/federicocotogno/json_chatbot
-    """
-    def get_response(self, input_string):
-        split_message = re.split(r'\s+|[,;?!.-]\s*', input_string.lower())
-        score_list = []
-
-        # Check all the responses
-        for response in response_data:
-            response_score = 0
-            required_score = 0
-            required_words = response["required_words"]
-
-            # Check if there are any required words
-            if required_words:
-                for word in split_message:
-                    if word in required_words:
-                        required_score += 1
-
-            # Amount of required words should match the required score
-            if required_score == len(required_words):
-                # print(required_score == len(required_words))
-                # Check each word the user has typed
-                for word in split_message:
-                    # If the word is in the response, add to the score
-                    if word in response["user_input"]:
-                        response_score += 1
-
-            # Add score to list
-            score_list.append(response_score)
-            # Debugging: Find the best phrase
-            # print(response_score, response["user_input"])
-
-        # Find the best response and return it if they're not all 0
-        best_response = max(score_list)
-        response_index = score_list.index(best_response)
-
-        # Check if input is empty
-        if input_string == "":
-            reply_candidates = [
-                "Yeah? What's up?",
-                "You rang?",
-                "What do you need?",
-                "You pinged me.",
-                "Hm?",
-                "Yes?"
-            ]
-            return random.choice(reply_candidates)
-
-        # If there is no good response, return a random one.
-        if best_response != 0:
-            return random.choice(response_data[response_index]["bot_response"])
-
-        return random_bad_input_response()
+    def get_response(self, result):
+        return result
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if message.author == self.bot.user:
             return
 
-        await UserXPTracker(self.bot).update_user_stats(message)
+        # await UserXPTracker(self.bot).update_user_stats(message)
 
-        if self.bot.user in message.mentions:
+        # Check if bot was pinged in this message
+        # We check the message content as opposed to its mentions,
+        # because we only want the bot to respond to @TARS
+
+        if str(self.bot.user.id) in message.content and not message.author.bot:
             if "setting" in message.content:
                 if "trust" in message.content:
                     await message.reply("Lower than yours, apparently.")

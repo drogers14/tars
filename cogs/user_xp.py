@@ -1,20 +1,24 @@
+import os
 from discord.ext import commands
 import discord
 import json
 
 # Load JSON data
 def load_json(filename):
-    with open(filename) as read_file:
+    with open(os.path.join(os.getcwd(), filename), "w+") as read_file:
         print(f"Loaded {filename}")
-        return json.load(read_file)
+        try:
+            data = json.load(read_file)
+        except json.JSONDecodeError:
+            data = {}
+    return data
 
 def save_json(obj, filename):
-    file = open(filename, "w")
-    json.dump(obj, file)
-    file.close()
+    with open(os.path.join(os.getcwd(), filename), "w") as file:
+        json.dump(obj, file)
 
 def xp_requirement(level):
-    return level + (150 * level) + 20
+    return level + (25 * level) + 20
 
 class UserXPTracker(commands.Cog):
     def __init__(self, bot):
@@ -28,8 +32,9 @@ class UserXPTracker(commands.Cog):
         user = author.name + author.discriminator
 
         if user not in self.user_level_data.keys():
-            data = self.user_level_data[user] = {}
-            data["level"] = 0
+            self.user_level_data[user] = {}
+            data = self.user_level_data[user]
+            data["level"] = 1
             data["xp"] = 0
         
         data = self.user_level_data[user]
@@ -41,13 +46,15 @@ class UserXPTracker(commands.Cog):
         user = author.name + author.discriminator
 
         # Add user to stats tracker if nonexistent
-        if user not in self.user_level_data.keys():
-            data = self.user_level_data[user] = {}
-            data["level"] = 0
+        # (unless it's a bot)
+        if user not in self.user_level_data.keys() and not author.bot:
+            self.user_level_data[user] = {}
+            data = self.user_level_data[user]
+            data["level"] = 1
             data["xp"] = 0
 
         data = self.user_level_data[user]
-        xp_gain = len(message.content)
+        xp_gain = 10
         print(f"Giving {message.author.name} {xp_gain} XP")
         data["xp"] += xp_gain
         if data["xp"] >= xp_requirement(data["level"]):
